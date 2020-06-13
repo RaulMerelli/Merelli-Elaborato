@@ -1,0 +1,66 @@
+﻿@page
+@model imgAPI.Pages.indexModel
+@{
+    ViewData["Title"] = "index";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="css/StyleSheet.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="js/script_2.js"></script>
+</head>
+<body>
+    <h1>Convertitore immagini via webAPI</h1>
+    <div class="links">
+        <h2>Formati attualmente supportati</h2>
+        <a href="PCX"><img src="imgs/PCXLOGO.png" /></a>
+        <a href="TGA"><img src="imgs/TGALOGO.png" /></a>
+        <h2>Come accedere alle API</h2>
+    </div>
+    <div class="description">
+        <span>Per accedere in Get alle API di ogni formato &egrave; sufficiente navigare alla pagina</span>
+        <span id="hostname"></span><span>/api/[formato file]</span>
+        <p>Il risultato ottenuto sar&agrave; un JSON che garantisce l'accesso e i dettagli dell'ultima immagine caricata in quel formato dallo stesso utente.</p>
+        <p>Esempio:</p>
+        <div class="code">
+            <span id="hostname2"></span><span>/api/pcx</span><br />
+            <span>{"fileFormat":".png","width":1419,"height":1001,"convertedImg":"pcx/10-06-2020-05-59-10-5853_MARBLES.png"}</span>
+        </div>
+        <p>Per caricare un'immagine invece &egrave; sufficiente fare una richiesta Post con il file che si vuole convertire allo stesso indirizzo, e aggiungiere due header alla richiesta:</p>
+        <p>'filename: [nome del file che vogliamo caricare]'</p>
+        <p>'extension: [formato immagine di destinazione]'</p>
+        <p>I formati file di destinazione supportati sono ".bmp", ".gif", ".ico", ".jpeg", ".jpg", ".png", ".tif", ".tiff", ".wmf". Tutti gli altri formati indicati porteranno la richiesta a fallire e verrà ritornata una pagina con un errore 404.</p>
+        <p>Esempio:</p>
+        <div class="code">
+            <span>'filename: test'</span><br />
+            <span>'extension: .png'</span>
+        </div>
+        <p>Non &egrave; richiesto nessun content type specifico. I file vengono memorizzati nel server per un tempo limitato, definito a discrezione del possessore del servizio.</p>
+        <p>La richiesta termina con una response dopo che l'immagine viene convertita dal server. Come risposta al POST, il client riceve un JSON contenente l'id con cui si può trovare il file e il nome con cui è stata caricata nel server, che dovrebbe equivalere al nome fornito tramite header.</p>
+        <p>Esempio:</p>
+        <div class="code">
+            <span>{"filename":"test.tga","id":14}</span>
+        </div>
+        <br />
+        <span>A questo punto dato l'id possiamo ottenere via Get l'immagine convertita</span>
+        <span id="hostname3"></span><span>/api/[formato file]/[id]</span>
+        <p>Esempio:</p>
+        <div class="code">
+            <span id="hostname4"></span><span>/api/tga/14</span>
+        </div>
+        <p>Se invece siamo sicuri di essere l'unico PC all'interno di una rete che condivide lo stesso IP pubblico in uscita ad usufruire del servizio sarà sufficiente effettuare una chiamata Get senza specificare l'id.</p>
+        <p>Tutte le immagini caricate finch&eacute; presenti nei server sono accessibili a chiunque. Il proprietario del servizio si riserva di eseguire azioni volte a proteggere il servizio, come eliminare contenuti inappropriati o inibire l'accesso a specifici indirizzi IP.</p>
+    </div>
+    <div class="spacer"></div>
+    <div class="footer center">
+        <ul>
+            <li><a href="PCX">PCX</a> |</li>
+            <li><a href="TGA">TGA</a></li>
+        </ul>
+    </div>
+</body>
+</html>

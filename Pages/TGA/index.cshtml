@@ -1,0 +1,38 @@
+﻿@page
+@model imgAPI.Pages.TGA.indexModel
+@{
+    ViewData["Title"] = "index";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" href="css/StyleSheet.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="js/script.js"></script>
+</head>
+<body>
+    <h1>Ecco i risultati delle ultime elaborazioni:</h1>
+    @for (int i = 0; i < Model.imgs.Count; i++)
+    {
+        <div class="child @("div"+i) photo" style="@("left: "+ (5 + ((float)i * 18.75))+"%")">
+            <img id="id1" src="@Model.imgs[i]">
+        </div>
+    }
+
+    <div class="footer center">
+        <ul>
+            <li><a href="../api/tga">API</a> |</li>
+            <li><a href="../index">Home</a></li>
+        </ul>
+    </div>
+    <div class="footer left">
+        <ul style="margin:0">
+            <li><img src="imgs/TGALOGO.png"></li>
+            <li>Truevision Graphics Adapter (TGA)</li>
+        </ul>
+    </div>
+</body>
+</html>
